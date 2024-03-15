@@ -11,7 +11,6 @@ use axum::{
     Router, Server,
 };
 use lazy_static::lazy_static;
-use rand::Rng;
 use std::env::var;
 
 async fn graphiql() -> impl IntoResponse {

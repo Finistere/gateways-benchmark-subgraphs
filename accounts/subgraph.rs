@@ -12,7 +12,6 @@ use axum::{
     routing::get,
     Router, Server,
 };
-use rand::Rng;
 use std::env::var;
 
 #[macro_use]
