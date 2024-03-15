@@ -22,6 +22,7 @@
           [
             nodejs
             rover
+            k6
           ]
           ++ optional (system == systems.aarch64-darwin) [
             darwin.apple_sdk.frameworks.CoreFoundation

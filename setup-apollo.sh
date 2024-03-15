@@ -8,7 +8,7 @@ export APOLLO_GRAPH_REF="$1"
 
 function rover-introspect {
     rover subgraph introspect "$2" | \
-        rover subgraph publish -c brabier-graph@current \
+        rover subgraph publish -c "$APOLLO_GRAPH_REF" \
         --name "$1" \
         --schema - \
         --routing-url "$2"

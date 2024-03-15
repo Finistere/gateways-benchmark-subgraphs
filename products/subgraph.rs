@@ -122,6 +122,7 @@ async fn delay_middleware<B>(req: Request<B>, next: Next<B>) -> Result<Response,
 async fn main() {
     let schema = Schema::build(Query, EmptyMutation, EmptySubscription)
         .enable_federation()
+        .extension(async_graphql::extensions::ApolloTracing) // Enable ApolloTracing extension
         // .extension(Logger)
         .finish();
     let sdl = schema.sdl_with_options(SDLExportOptions::new().federation().compose_directive());
