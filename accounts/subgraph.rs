@@ -66,6 +66,7 @@ lazy_static! {
 struct User {
     id: ID,
     name: Option<String>,
+    #[graphql(shareable)]
     username: Option<String>,
     birthday: Option<i32>,
 }
