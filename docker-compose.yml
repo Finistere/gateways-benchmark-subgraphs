@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  accounts:
+    build:
+      context: ${BASE_DIR:-.}/../../subgraphs/accounts
+      dockerfile: ../Dockerfile.rust
+    container_name: accounts
+    network_mode: "host"
+    environment:
+      PORT: 4001
+      SUBGRAPH_DELAY_MS: ${ACCOUNTS_SUBGRAPH_DELAY_MS}
+    healthcheck:
+        test: ["CMD", "/usr/lib/apt/apt-helper", "download-file", "http://0.0.0.0:4001/graphql", "temp"]
+        interval: 3s
+        timeout: 5s
+        retries: 10
+  inventory:
+    build:
+      context: ${BASE_DIR:-.}/../../subgraphs/inventory
+      dockerfile: ../Dockerfile.rust
+    container_name: inventory 
+    network_mode: "host"
+    environment:
+      PORT: 4002
+      SUBGRAPH_DELAY_MS: ${ACCOUNTS_SUBGRAPH_DELAY_MS}
+    healthcheck:
+        test: ["CMD", "/usr/lib/apt/apt-helper", "download-file", "http://0.0.0.0:4002/graphql", "temp"]
+        interval: 3s
+        timeout: 5s
+        retries: 10
+  products:
+    build:
+      context: ${BASE_DIR:-.}/../../subgraphs/products
+      dockerfile: ../Dockerfile.rust
+    container_name: products 
+    network_mode: "host"
+    environment:
+      PORT: 4003
+      SUBGRAPH_DELAY_MS: ${ACCOUNTS_SUBGRAPH_DELAY_MS}
+    healthcheck:
+        test: ["CMD", "/usr/lib/apt/apt-helper", "download-file", "http://0.0.0.0:4003/graphql", "temp"]
+        interval: 3s
+        timeout: 5s
+        retries: 10
+  reviews:
+    build:
+      context: ${BASE_DIR:-.}/../../subgraphs/reviews
+      dockerfile: ../Dockerfile.rust
+    container_name: reviews
+    network_mode: "host"
+    environment:
+      PORT: 4004
+      SUBGRAPH_DELAY_MS: ${ACCOUNTS_SUBGRAPH_DELAY_MS}
+    healthcheck:
+        test: ["CMD", "/usr/lib/apt/apt-helper", "download-file", "http://0.0.0.0:4004/graphql", "temp"]
+        interval: 3s
+        timeout: 5s
+        retries: 10
+
