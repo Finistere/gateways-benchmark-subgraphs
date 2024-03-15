@@ -2,8 +2,9 @@ version: '3.8'
 
 services:
   accounts:
+    restart: unless-stopped
     build:
-      context: ${BASE_DIR:-.}/../../subgraphs/accounts
+      context: ./accounts
       dockerfile: ../Dockerfile.rust
     container_name: accounts
     network_mode: "host"
@@ -16,8 +17,9 @@ services:
         timeout: 5s
         retries: 10
   inventory:
+    restart: unless-stopped
     build:
-      context: ${BASE_DIR:-.}/../../subgraphs/inventory
+      context: ./inventory
       dockerfile: ../Dockerfile.rust
     container_name: inventory 
     network_mode: "host"
@@ -30,8 +32,9 @@ services:
         timeout: 5s
         retries: 10
   products:
+    restart: unless-stopped
     build:
-      context: ${BASE_DIR:-.}/../../subgraphs/products
+      context: ./products
       dockerfile: ../Dockerfile.rust
     container_name: products 
     network_mode: "host"
@@ -44,8 +47,9 @@ services:
         timeout: 5s
         retries: 10
   reviews:
+    restart: unless-stopped
     build:
-      context: ${BASE_DIR:-.}/../../subgraphs/reviews
+      context: ./reviews
       dockerfile: ../Dockerfile.rust
     container_name: reviews
     network_mode: "host"
