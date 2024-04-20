@@ -13,6 +13,7 @@ use axum::{
 use lazy_static::lazy_static;
 use std::env::var;
 
+
 async fn graphiql() -> impl IntoResponse {
     response::Html(GraphiQLSource::build().endpoint("/graphql").finish())
 }
@@ -111,7 +112,12 @@ impl Query {
 }
 
 async fn delay_middleware<B: std::fmt::Debug>(req: Request<B>, next: Next<B>) -> Result<Response, StatusCode> {
-    println!("Got request: {:#?}", req);
+    println!(
+        "[{}] Got request: {:#?}",
+        std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().as_secs(),
+        req
+    );
+
     let delay_ms: Option<u64> = std::env::var("SUBGRAPH_DELAY_MS").ok().and_then(|s| s.parse().ok()).filter(|d| *d != 0);
     if let Some(delay_ms) = delay_ms {
         tokio::time::sleep(tokio::time::Duration::from_millis(delay_ms)).await;
