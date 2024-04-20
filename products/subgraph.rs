@@ -110,7 +110,8 @@ impl Query {
     }
 }
 
-async fn delay_middleware<B>(req: Request<B>, next: Next<B>) -> Result<Response, StatusCode> {
+async fn delay_middleware<B: std::fmt::Debug>(req: Request<B>, next: Next<B>) -> Result<Response, StatusCode> {
+    println!("Got request: {:#?}", req);
     let delay_ms: Option<u64> = std::env::var("SUBGRAPH_DELAY_MS").ok().and_then(|s| s.parse().ok()).filter(|d| *d != 0);
     if let Some(delay_ms) = delay_ms {
         tokio::time::sleep(tokio::time::Duration::from_millis(delay_ms)).await;
